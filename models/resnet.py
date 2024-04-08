@@ -7,7 +7,7 @@ Reference:
 """
 import torch.nn as nn
 import torch.nn.functional as F
-
+import torch
 
 class ResNetBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
@@ -52,7 +52,7 @@ class ResNetBlock(nn.Module):
         # TODO: Code here to initialize the shortcut layer
         if stride != 1 or out_channels != in_channels:
             self.shortcut = nn.Sequential(
-                nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=1, bias=False),
+                nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride),
                 nn.BatchNorm2d(num_features=out_channels)
             )
         ## END YOUR CODE
@@ -67,18 +67,20 @@ class ResNetBlock(nn.Module):
         ## YOUR CODE HERE
         original_x = x
         ## TODO: Call the first convolution, batchnorm, and activation
-        x = self.cnn1
+        x = self.cnn1(x)
         x = self.bn1(x)
         x = F.relu(x)
         ## TODO: Call the second convolution and batchnorm
-        x = self.cnn2
+        x = self.cnn2(x)
         x = self.bn2(x)
         ## TODO: Also call the shortcut layer on the original input
-        x_shortcut = self.shortcut(original_x)
+        x_shortcut = self.shortcut(original_x) if self.shortcut is not None else original_x
         ## TODO: Sum the result of the shortcut and the result of the second batchnorm
         ## and apply your activation
-        out = x + x_shortcut
-        out = F.relu(out)
+        # print("DEBUG: ", str(x.shape), str(x_shortcut.shape))
+
+
+        out = F.relu(x + x_shortcut)
         return out
         ## END YOUR CODE
         # pass  # Remove this line when you implement this function
