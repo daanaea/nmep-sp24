@@ -121,11 +121,11 @@ The data is actually contained in `self.file`, while the data is stored in `/dat
 
 ### 1.2.1 How is `_get_transforms` different from the one in CIFAR10Dataset?
 
-`YOUR ANSWER HERE`
+Compared to `_get_transforms` provided in CIFAR10Dataset, the one in MediumImagenetHDF5Dataset augments a new data and stores them on top of the input data (after normalization and resizing). The former modifies the input data itself.
 
 ### 1.2.2 How is `__getitem__` different from the one in CIFAR10Dataset? How many data splits do we have now? Is it different from CIFAR10? Do we have labels/annotations for the test set?
 
-`YOUR ANSWER HERE`
+The MediumImagenetHDF5Dataset is not labeled compared to CIFAR10, so its `__getitem__` method also derives label from the image name.
 
 ### 1.2.3 Visualizing the dataset
 
