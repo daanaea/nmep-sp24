@@ -9,7 +9,7 @@ class LeNet(nn.Module):
         super().__init__()
         self.features = nn.Sequential(
             nn.Conv2d(3, 6, kernel_size=5, stride=1, padding=2),
-            nn.Sigmoid(),
+            nn.Sigmoid(), # activation function
             nn.AvgPool2d(kernel_size=2, stride=2),
             nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0),
             nn.Sigmoid(),
@@ -28,3 +28,9 @@ class LeNet(nn.Module):
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
+
+model = LeNet()
+
+total_params = sum([p.numel() for p in model.parameters()])
+print('The total # of LeNet parameters: ', total_params)
+
