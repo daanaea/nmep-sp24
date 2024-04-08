@@ -38,7 +38,7 @@ from matplotlib import pyplot as plt
 
 print('check')
 
-data = CIFAR10Dataset(img_size=64, train=False)
+data = MediumImagenetHDF5Dataset(img_size=224, train=False)
 
 # i = random.randint(0, 10_000)
 # print(i)
