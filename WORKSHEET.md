@@ -8,7 +8,7 @@ This is the worksheet for Homework 1. Your deliverables for this homework are:
 - [ ] Kaggle submission and writeup (details below)
 - [ ] Github repo with all of your code! You need to either fork it or just copy the code over to your repo. A simple way of doing this is provided below. Include the link to your repo below. If you would like to make the repo private, please dm us and we'll send you the GitHub usernames to add as collaborators.
 
-`YOUR GITHUB REPO HERE (or notice that you DMed us to share a private repo)`
+GITHUB REPO: `https://github.com/daanaea/nmep-sp24.git`
 
 ## To move to your own repo:
 
@@ -28,15 +28,17 @@ Feel free to ask your NMEP friends if you don't know!
 
 ## -1.0 What is the difference between `torch.nn.Module` and `torch.nn.functional`?
 
-`YOUR ANSWER HERE`
+Although both are used in building a neural network, `nn.Module` requires all parameters passed in (specifically, learnable parameters like weights), but `nn.functional` is more flexible and better for building a simpler pipeline.
 
 ## -1.1 What is the difference between a Dataset and a DataLoader?
 
-`YOUR ANSWER HERE`
+A DataLoader splits and shuffles the given Dataset (PyTorch) into batches of specified size:
+- Dataset: An instance of `torch.utils.data.Dataset` class.
+- DataLoader: A generator function. Takes in a `Dataset` instance.
 
 ## -1.2 What does `@torch.no_grad()` above a function header do?
 
-`YOUR ANSWER HERE`
+It turns off calculating gradients of the weights (typically, in order to test/validate the model).
 
 
 
@@ -46,26 +48,26 @@ Read through `README.md` and follow the steps to understand how the repo is stru
 
 ## 0.0 What are the `build.py` files? Why do we have them?**
 
-`YOUR ANSWER HERE`
+The `build.py` files contain methods to process config parameters (e.g. `DataLoader()` functions for input data), and is used as a mediator between input and model itself.
 
 ## 0.1 Where would you define a new model?
 
-`YOUR ANSWER HERE`
+Add a new model to `models/` folder.
 
 ## 0.2 How would you add support for a new dataset? What files would you need to change?
 
-`YOUR ANSWER HERE`
+Add support for a new dataset in `/data` folder, and write new configurations in `datasets.py` (a new `DataSet` instance tailored for the data) and `build.py` (a new `DataLoader()` generator).
 
 ## 0.3 Where is the actual training code?
 
-`YOUR ANSWER HERE`
+The actual training code is in the `main.py` file.
 
 ## 0.4 Create a diagram explaining the structure of `main.py` and the entire code repo.
 
 Be sure to include the 4 main functions in it (`main`, `train_one_epoch`, `validate`, `evaluate`) and how they interact with each other. Also explain where the other files are used. No need to dive too deep into any part of the code for now, the following parts will do deeper dives into each part of the code. For now, read the code just enough to understand how the pieces come together, not necessarily the specifics. You can use any tool to create the diagram (e.g. just explain it in nice markdown, draw it on paper and take a picture, use draw.io, excalidraw, etc.)
 
 `YOUR ANSWER HERE`
-
+<!-- ![alt text]() -->
 
 
 # Part 1: Datasets

@@ -22,6 +22,7 @@ from utils import create_logger, load_checkpoint, save_checkpoint
 
 
 def parse_option():
+    "A command line parser."
     parser = argparse.ArgumentParser("Vision model training and evaluation script", add_help=False)
     parser.add_argument("--cfg", type=str, required=True, metavar="FILE", help="path to config file")
     parser.add_argument("--opts", help="Modify config options by adding 'KEY VALUE' pairs.", default=None, nargs="+")
@@ -48,6 +49,7 @@ def parse_option():
 
 
 def main(config):
+    "Configures the model and sets up the parameters."
     dataset_train, dataset_val, dataset_test, data_loader_train, data_loader_val, data_loader_test = build_loader(
         config
     )
@@ -165,7 +167,7 @@ def train_one_epoch(config, model, criterion, data_loader, optimizer, epoch):
 
 @torch.no_grad()
 def validate(config, data_loader, model):
-    criterion = torch.nn.CrossEntropyLoss()
+    criterion = torch.nn.CrossEntropyLoss() # invariant in scaling
     model.eval()
 
     batch_time = AverageMeter()
