@@ -29,8 +29,8 @@ class LeNet(nn.Module):
         x = self.classifier(x)
         return x
 
-model = LeNet()
+# model = LeNet()
 
-total_params = sum([p.numel() for p in model.parameters()])
-print('The total # of LeNet parameters: ', total_params)
+# total_params = sum([p.numel() for p in model.parameters()])
+# print('The total # of LeNet parameters: ', total_params)
 
