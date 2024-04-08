@@ -66,8 +66,7 @@ The actual training code is in the `main.py` file.
 
 Be sure to include the 4 main functions in it (`main`, `train_one_epoch`, `validate`, `evaluate`) and how they interact with each other. Also explain where the other files are used. No need to dive too deep into any part of the code for now, the following parts will do deeper dives into each part of the code. For now, read the code just enough to understand how the pieces come together, not necessarily the specifics. You can use any tool to create the diagram (e.g. just explain it in nice markdown, draw it on paper and take a picture, use draw.io, excalidraw, etc.)
 
-`YOUR ANSWER HERE`
-<!-- ![alt text]() -->
+![The structure of `main.py`.](main_structure.jpg)
 
 
 # Part 1: Datasets
@@ -78,43 +77,45 @@ The following questions relate to `data/build.py` and `data/datasets.py`.
 
 ### 1.0.0 What does `build_loader` do?
 
-`YOUR ANSWER HERE`
+The `build_loader` makes a `DataLoader` instance out of provided datasets and config parameters passed in.
 
-### 1.0.1 What functions do you need to implement for a PyTorch Datset? (hint there are 3)
+### 1.0.1 What functions do you need to implement for a PyTorch Dataset? (hint there are 3)
 
-`YOUR ANSWER HERE`
+`__init__`, `__getitem__`, `__len__`.
 
 ## 1.1 CIFAR10Dataset
 
 ### 1.1.0 Go through the constructor. What field actually contains the data? Do we need to download it ahead of time?
 
-`YOUR ANSWER HERE`
+The data is contained in `config.DATA.DATASET`, where `config` is a `Dataset` instance passed in as an argument. It must be downloaded ahead of time through running/modifying `datasets.py`.
 
 ### 1.1.1 What is `self.train`? What is `self.transform`?
 
-`YOUR ANSWER HERE`
+`self.train`: An instance variable of a `Dataset` class. Inidcates whether a dataset is used for training or testing a model. Can either take `True` or `False`. 
+
+`self.transform`: Normalizes the given input image data and resizes by doubling. If given a train dataset (`self.train=True`), synthesizes a new images by calling randomly rotating with `RandomHorizontalFlip` and chaging the brightness, contrast, saturation and hue with `ColorJitter`.
 
 ### 1.1.2 What does `__getitem__` do? What is `index`?
 
-`YOUR ANSWER HERE`
+The `__getitem__` method takes in an `index` of the image in the dataset (`self`) and returns it with its label.
 
 ### 1.1.3 What does `__len__` do?
 
-`YOUR ANSWER HERE`
+The `__len__` method returns the length of the dataset (i.e. how many images are in there).
 
 ### 1.1.4 What does `self._get_transforms` do? Why is there an if statement?
 
-`YOUR ANSWER HERE`
+The `self._get_transforms` method configures transformations that are going to be invoked with `self.transform` depending whether it is a train/test data.
 
 ### 1.1.5 What does `transforms.Normalize` do? What do the parameters mean? (hint: take a look here: https://pytorch.org/vision/main/generated/torchvision.transforms.Normalize.html)
 
-`YOUR ANSWER HERE`
+Given an image dataset, `transforms.Normalize` normalizes the images' contrast and brightness (while getting rid of outliers and vanishing gradients as well). It takes in mean and standard deviation as parameters.
 
 ## 1.2 MediumImagenetHDF5Dataset
 
 ### 1.2.0 Go through the constructor. What field actually contains the data? Where is the data actually stored on honeydew? What other files are stored in that folder on honeydew? How large are they?
 
-`YOUR ANSWER HERE`
+The data is actually contained in `self.file`, while the data is stored in `/data/medium-imagenet/medium-imagenet-nmep-96.hdf5` path on honeydew.
 
 > *Some background*: HDF5 is a file format that stores data in a hierarchical structure. It is similar to a python dictionary. The files are binary and are generally really efficient to use. Additionally, `h5py.File()` does not actually read the entire file contents into memory. Instead, it only reads the data when you access it (as in `__getitem__`). You can learn more about [hdf5 here](https://portal.hdfgroup.org/display/HDF5/HDF5) and [h5py here](https://www.h5py.org/).
 
